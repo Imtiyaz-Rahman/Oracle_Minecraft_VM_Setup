@@ -1,56 +1,83 @@
-# How to automate orcale vm minecraft setup
+#!/bin/bash
 
-Won't automate the entire process,
-But will help to reduce doing manual tasks
+echo "checking if you are running sudo"
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run as root (sudo ./oracle_image_v9_run.sh)"
+  exit 1
+fi
 
-First Download:
-[FileZilla](https://filezilla-project.org/) a file managment solution that will allow you to transfer your mod pack fiels to your vm
+echo "Commands will only work if"
+echo "you are using the oracle linux image" && sleep 2
 
-Install using the downlaod client
-or (Linux)
-sudo apt install filezilla
+echo "You will also  need a java version for minecraft"
+echo -e "Java 21 = Minecraft 1.20.5 or greater \n Java 17 = Minecraft 1.18 - 1.20.4\n Java 16 = Minecraft 1.17\n Java 8 = Minecraft 1.16.5 or less" > Java_versions.txt && sleep 4
 
-Now connect to your terminal system using the <insert file>.txt
+echo "installing Java 21"
+yum install jdk-21-headless.aarch64 -y
 
-Now run the following command
+echo "installing tmux"
+yum install tmux -y
 
-shell
-```
-wget <github url for the file>
-./orcale_image_v9_run.sh
-```
+echo "Enable firewall system and allow ports"
+echo "To connect to the minecraft server"
+firewall-cmd --permanent --zone=public --add-port=25565/tcp
+firewall-cmd --permanent --zone=public --add-port=25565/udp
+firewall-cmd --reload
 
-The `oracle_image_v9_run.sh` will
-1. install the Java version && a file to change it
-2. install tmux (used to detach terminal)
-3. setup firewall system
-4. folder setup
-5. set file permissions
+echo "Making server folder"
+mkdir -p /home/opc/minecraft-server
+cd /home/opc/minecraft-server
 
+echo "Setting up permission for filezilla to work"
+chown -R opc:opc /home/opc/minecraft-server
+chmod -R 755 /home/opc/minecraft-server
 
-This is the inital step to setup the system
-
-Once done connect to FileZilla as seen from the echo command
-Just to reiterate here are the steps:
-1. File → Site Manager → New Site
+echo "You should be set up for filezilla"
+echo "FileZilla Setup:
+1. File → Site Manager → New Site 
 2. Protocol: SFTP
 3. Host: (your VM public IP), Port: 22
 4. Logon Type: Key file
 5. User: opc
 6. Browse to your saved .ppk file
-7. Click Connect
+7. Click Connect" && sleep 10
 
-Navigate to: opc → minecraft-server
-1. Download Minecraft server pack from CurseForge or other
-2. Upload to `minecraft-server` via FileZilla
+echo "Do the FileZilla setup and add the mod pack"
+echo "Or the custom mod pack"
+echo "But you will need a start.sh in your mod pack or install.sh or run.sh" && sleep 10
 
-Once that is done you can run the server_setup.sh
+echo "A new file will be created to run the setup"
+echo "run server_setup.sh if you have uploaded to filezilla"
 
-shell
-```
-./server_setup.sh
-```
-The `server_setup.sh` will
-1. set ram usage value for the server (change if needed)
-2. set the eula file to true
-3. run the server installer shell script
+cat <<'EOF' > /home/opc/minecraft-server/server_setup.sh
+#!/bin/bash
+set -e
+
+echo "Changing server RAM usage"
+RAMVALUE="-Xmx10G"
+
+cd /home/opc/minecraft-server
+
+if [ -f user_jvm_args.txt ]; then
+  echo "$RAMVALUE" > user_jvm_args.txt
+elif [ -f variables.txt ]; then
+  echo "$RAMVALUE" > variables.txt
+fi
+
+echo "Accepting EULA"
+echo "eula=true" > eula.txt
+
+echo "Running server"
+if [ -x start.sh ]; then
+  ./start.sh
+elif [ -x install.sh ]; then
+  ./install.sh
+elif [ -x run.sh ]; then
+  ./run.sh
+else
+  echo "No start/install/run script found"
+fi
+EOF
+
+chmod +x /home/opc/minecraft-server/server_setup.sh
+chown opc:opc /home/opc/minecraft-server/server_setup.sh
