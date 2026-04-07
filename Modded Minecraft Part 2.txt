@@ -1,0 +1,17 @@
+Link to youtube vid example:
+https://www.youtube.com/watch?v=15OPLY6SvPo
+
+Need to work on doc
+
+## Mod Pack
+You will need a SERVER PACK
+
+Use a pre existing server pack and simply add mods to it
+
+To have a Tmux session 
+tmux new-session -s <minecraft-session-name>
+
+To connect back to tmux type 
+
+Command:
+tmux attach

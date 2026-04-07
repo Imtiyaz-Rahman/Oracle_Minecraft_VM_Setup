@@ -1,0 +1,81 @@
+Doc to Oracle VM:
+
+https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm#compute
+
+Prerequsite - 
+OracleVM
+Putty 
+PuttyGen
+FilleZilla
+CurseForge
+
+# OracleVM
+Login
+(Burger Symbol) > Compute > Instance
+
+Create instance
+
+## Basic information
+Name > <Call it server or sum>
+
+Image > Oracle Linux 9
+
+Shape > Virtual Machine > Ampere > 4 OCPU(MAX) & 24 Ram(MAX)
+
+## Security
+(Skip)
+
+## Networking
+VNIC name > <Resonable Name>
+
+Primary network > Create new virtual network or select existing virtual cloud
+
+Subnet > Select existing subnet or create new public subnet
+
+IMPORTANT: Add SSH keys 
+
+Download private key
+(Needed for putty)
+
+## Storage 
+(Skip)
+
+## Review 
+You should be done
+
+If the domain does not work just go back to **Basic Information** and change the domain
+
+# Public IP Address (Missing)
+Source: https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/assigning-ephemeral-public-existing-private-ip.htm
+
+Compute > Instance > Networking > Attached VNICs
+
+Select VNICs > IP administration > Actions menu (three dots) > Edit(dropdown)
+
+Under Public IP type > Ephemeral public IP > <Enter a valid Name>
+
+Update
+
+
+## Subnet
+
+Virtual cloud network > <Click on instance> > Security > Click Default Securit List
+
+Default > Security Rules > Ingress Rules 
+
+Add Ingress Rules:
+Source Type: CIDR
+Source CID: 0.0.0.0/0
+IP Protocol: TCP
+Destination Port Range: 25565
+
+Source Type: CIDR
+Source CID: 0.0.0.0/0
+IP Protocol: UDP
+Destination Port Range: 25565
+
+
+
+
+
+
