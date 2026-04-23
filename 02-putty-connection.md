@@ -46,17 +46,17 @@ Upload files to: `opc/minecraft-server`
     - Type: scp
     - step: you will need to navigate and type to your desktop *folder*
     - Press: Tab key and navigate to Folder
-    - Example: scp *presses tab* /desktop/minecraft.Zip
+    - Example: `scp *presses tab* /desktop/minecraft.Zip`
 5. Using the private key to connect to the VM(Virtual Machine)
     - Type: -i
     - step: as before navigate to your private key folder-location that you downloaded  
     - Type: Tab key and navigate to Folder
-    - Example: -i /Documents/Key-Folder/Special-Minecraft-Key
+    - Example: `-i /Documents/Key-Folder/Special-Minecraft-Key`
 6. Transfer to VM(Virtual Machine)
     - Type: opc@<your-public-ip>:opc/<folder-location> 
     - step: type this out and fill in the values that are in <>
     - fact: you can *not press tab* when transferring to VM on your device
-    - Example: opc@12.345.678.90:opc/minecraft-server
+    - Example: `opc@12.345.678.90:opc/minecraft-server`
 7. It should look similar: 
-    - scp /desktop/minecraft.zip -i /Documents/Key-Folder/Special-Minecraft-Key opc@12.345.678.90:opc/minecraft-server 
+    - `scp /desktop/minecraft.zip -i /Documents/Key-Folder/Special-Minecraft-Key opc@12.345.678.90:opc/minecraft-server` 
 
