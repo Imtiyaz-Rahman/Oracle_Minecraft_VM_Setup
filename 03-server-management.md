@@ -19,6 +19,12 @@ tmux attach
 
 Detach: `Ctrl+B` then `D`
 
+View terminal instance:
+
+```bash
+tmux ls
+```
+
 ## Java Version
 
 Check version:

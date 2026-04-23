@@ -13,6 +13,8 @@
 
 **Networking:**
 
+- PS: If I did not include the steps they are not important
+- Instance: Name instance / Select image / Virtual machine
 - VNIC name: Any name
 - Network: Create new or select existing
 - Subnet: Create new public subnet or select existing
