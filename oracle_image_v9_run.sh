@@ -13,16 +13,24 @@ echo "You will also  need a java version for minecraft"
 echo -e "Java 21 = Minecraft 1.20.5 or greater \n Java 17 = Minecraft 1.18 - 1.20.4\n Java 16 = Minecraft 1.17\n Java 8 = Minecraft 1.16.5 or less" > Java_versions.txt && sleep 4
 
 echo "installing Java 21"
-yum install jdk-21-headless.aarch64 -y
+dnf install jdk-21-headless.aarch64 -y
 
 echo "installing tmux"
-yum install tmux -y
+dnf install tmux -y
 
 echo "Enable firewall system and allow ports"
 echo "To connect to the minecraft server"
 firewall-cmd --permanent --zone=public --add-port=25565/tcp
 firewall-cmd --permanent --zone=public --add-port=25565/udp
 firewall-cmd --reload
+
+echo "Allowing and enabling alternative packages"
+dnf install -y oracle-epel-release-el9
+dnf config-manager --enable ol9_developer_EPEL
+
+echo "Installing fail2ban"
+dnf install -y fail2ban
+systemctl enable --now fail2ban
 
 echo "Making server folder"
 mkdir -p /home/opc/minecraft-server
