@@ -14,6 +14,12 @@ chmod +x oracle_image_v9_run.sh
 2. Navigate to: `opc/minecraft-server`
 3. Upload server pack from CurseForge
 
+or
+
+1. SCP to server
+2. Upload the content to via [02-putty-connection](./02-putty-connection.md#alternative--to-filezilla)
+3. Unzip and run in the server
+
 ## Step 3: Install Server
 
 ```bash
