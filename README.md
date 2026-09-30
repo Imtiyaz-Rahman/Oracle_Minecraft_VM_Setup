@@ -2,6 +2,10 @@
 
 Complete guide for setting up a Minecraft server on Oracle Cloud.
 
+## Terraform Setup (Alternative Setup)
+
+Go to the [Terraform ReadMe](./terraform/README.md)
+
 ## Quick Start
 
 Follow these guides in order:
