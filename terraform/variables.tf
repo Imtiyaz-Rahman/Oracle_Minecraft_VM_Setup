@@ -1,3 +1,9 @@
+variable "oci_config_profile" {
+  description = "OCI config file profile to use for authentication"
+  type        = string
+  default     = "DEFAULT"
+}
+
 variable "region" {
   description = "OCI region to deploy into (e.g. uk-london-1)"
   type        = string

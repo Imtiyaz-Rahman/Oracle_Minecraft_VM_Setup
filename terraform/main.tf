@@ -1,3 +1,9 @@
+# Data Sources
+
+data "oci_identity_availability_domains" "ads" {
+  compartment_id = var.compartment_id
+}
+
 # SSH Key Pair
 
 resource "tls_private_key" "minecraft" {
@@ -23,7 +29,6 @@ resource "oci_core_internet_gateway" "minecraft" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.minecraft.id
   display_name   = "minecraft-igw"
-  enabled        = true
 }
 
 resource "oci_core_route_table" "minecraft" {
@@ -48,8 +53,9 @@ resource "oci_core_security_list" "minecraft" {
   }
 
   ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
+    description = "SSH"
+    protocol    = "6"
+    source      = "0.0.0.0/0"
     tcp_options {
       min = 22
       max = 22
@@ -57,8 +63,9 @@ resource "oci_core_security_list" "minecraft" {
   }
 
   ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
+    description = "Minecraft TCP"
+    protocol    = "6"
+    source      = "0.0.0.0/0"
     tcp_options {
       min = 25565
       max = 25565
@@ -66,8 +73,9 @@ resource "oci_core_security_list" "minecraft" {
   }
 
   ingress_security_rules {
-    protocol = "17" # UDP
-    source   = "0.0.0.0/0"
+    description = "Minecraft UDP"
+    protocol    = "17"
+    source      = "0.0.0.0/0"
     udp_options {
       min = 25565
       max = 25565
@@ -111,10 +119,4 @@ resource "oci_core_instance" "minecraft" {
     ssh_authorized_keys = tls_private_key.minecraft.public_key_openssh
     user_data           = filebase64("${path.module}/../oracle_image_v9_run.sh")
   }
-}
-
-# Data Sources
-
-data "oci_identity_availability_domains" "ads" {
-  compartment_id = var.compartment_id
 }

@@ -35,11 +35,12 @@ ssh -i minecraft_server.pem opc@<instance_public_ip>
 
 Fill these in `terraform.tfvars` before running.
 
-| Variable              | Required | Default | Description                                      |
-| --------------------- | -------- | ------- | ------------------------------------------------ |
-| `region`              | ✅       | —       | OCI region (e.g. `uk-london-1`)                  |
-| `compartment_id`      | ✅       | —       | OCID of your compartment                         |
-| `instance_image_ocid` | ✅       | —       | OCID of Oracle Linux 9 ARM image for your region |
+| Variable              | Required | Default     | Description                                      |
+| --------------------- | -------- | ----------- | ------------------------------------------------ |
+| `region`              | ✅       | —           | OCI region (e.g. `uk-london-1`)                  |
+| `compartment_id`      | ✅       | —           | OCID of your compartment                         |
+| `instance_image_ocid` | ✅       | —           | OCID of Oracle Linux 9 ARM image for your region |
+| `oci_config_profile`  | ❌       | `"DEFAULT"` | OCI config file profile to use                   |
 
 > Find `instance_image_ocid` at: **Compute → Images → Platform Images → Oracle Linux 9 → Ampere**
 

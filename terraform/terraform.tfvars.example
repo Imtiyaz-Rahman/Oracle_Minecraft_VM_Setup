@@ -1,0 +1,13 @@
+# OCI config profile (defaults to "DEFAULT" if omitted)
+# oci_config_profile = "DEFAULT"
+
+# OCI region identifier (e.g. uk-london-1, us-ashburn-1)
+region = ""
+
+# OCID of the compartment to deploy into
+# Found at: Identity → Compartments → <your compartment> → OCID
+compartment_id = ""
+
+# OCID of the Oracle Linux 9 ARM (aarch64) image for your region
+# Found at: Compute → Images → Platform Images → Oracle Linux 9 → Ampere
+instance_image_ocid = ""
