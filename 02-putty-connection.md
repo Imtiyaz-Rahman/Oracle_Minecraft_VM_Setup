@@ -31,7 +31,7 @@ puttygen <private>.key -o <name>.ppk
    - Key file: `.ppk` file
 3. Connect
 
-Upload files to: `opc/minecraft-server`
+Upload files to: `/home/opc/minecraft-server`
 
 ## Alternative !! To FileZilla
 
@@ -40,23 +40,26 @@ Upload files to: `opc/minecraft-server`
     - Type:`scp`
     - Press: Enter
     - You should have a list of commands and info about *SCP*
+
 3. Zip *Mods* and *Server Folder* into one combined Folder
     - Place: The folder on your desktop
-4. Type `scp` in your Powershell/Terminal/Other:
-    - Type: scp
-    - step: you will need to navigate and type to your desktop *folder*
-    - Press: Tab key and navigate to Folder
-    - Example: `scp *presses tab* /desktop/minecraft.Zip`
-5. Using the private key to connect to the VM(Virtual Machine)
+
+4. Using the private key to connect to the VM(Virtual Machine)
     - Type: -i
-    - step: as before navigate to your private key folder-location that you downloaded  
-    - Type: Tab key and navigate to Folder
+    - step: as before navigate to your private key folder-location that you downloaded
     - Example: `-i /Documents/Key-Folder/Special-Minecraft-Key`
+    - TIP: chmod 600 the `Special-Minecraft-Key`
+
+5. Type `scp` in your Powershell/Terminal/Other:
+    - Type: scp
+    - step: you will need to navigate and type to your minecraft pack *folder*
+    - Example: `scp *presses tab* /home/user/minecraft.Zip`
+
 6. Transfer to VM(Virtual Machine)
-    - Type: opc@<your-public-ip>:opc/<folder-location> 
+    - Type: opc@<your-public-ip>:/home/opc/<folder-location> 
     - step: type this out and fill in the values that are in <>
     - fact: you can *not press tab* when transferring to VM on your device
     - Example: `opc@12.345.678.90:opc/minecraft-server`
-7. It should look similar: 
-    - `scp /desktop/minecraft.zip -i /Documents/Key-Folder/Special-Minecraft-Key opc@12.345.678.90:opc/minecraft-server` 
 
+7. It should look similar: 
+    - `scp -i ./Documents/Key-Folder/Special-Minecraft-Key /home/user/minecraft.zip opc@12.345.678.90:/home/opc/minecraft-server`
